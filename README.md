@@ -115,4 +115,4 @@ Getting Data Back
 You can access the data on the current page by using the `current_page`
 method.
 
-[homepage][http://steveklabnik.github.com/cereal]
+[homepage]: http://steveklabnik.github.com/cereal

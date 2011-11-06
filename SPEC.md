@@ -143,4 +143,4 @@ Authorization
 Authentication
 --------------
 
-[homepage][http://steveklabnik.github.com/cereal]
+[homepage]: http://steveklabnik.github.com/cereal

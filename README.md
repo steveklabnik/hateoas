@@ -8,6 +8,8 @@ responses.
 
 The current version is 0.0.1.
 
+**THIS CODE IS TERRIBLE AND EXPERIMENTAL!!!!!1 CONSIDER IT A BRAIN DUMP. THERE ARE NO TESTS. THERE ARE NO COMMENTS. THE CODE IS HORRIBLE. PLEASE DON'T USE THIS FOR ANYTHING YET.**
+
 Find out more at [the hateoas homepage][homepage].
 
 Installing

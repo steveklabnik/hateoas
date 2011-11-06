@@ -10,6 +10,10 @@ The current version is 0.0.1.
 
 **THIS CODE IS TERRIBLE AND EXPERIMENTAL!!!!!1 CONSIDER IT A BRAIN DUMP. THERE ARE NO TESTS. THERE ARE NO COMMENTS. THE CODE IS HORRIBLE. PLEASE DON'T USE THIS FOR ANYTHING YET.**
 
+Also, this code is very unstable. The released gem does follow links and
+return data, but I've erased that spike and am re-driving it with tests, so
+there's zero code on master right now.
+
 Find out more at [the hateoas homepage][homepage].
 
 Installing

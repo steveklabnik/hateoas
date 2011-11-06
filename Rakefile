@@ -8,6 +8,7 @@ RSpec::Core::RakeTask.new(:spec) do |t|
   t.rspec_opts = ["--color"]
 end
 
+begin
 # Bring in Rocco tasks
 require 'rocco/tasks'
 Rocco::make 'docs/'
@@ -47,4 +48,8 @@ file 'docs/.git' => ['docs/', '.git/refs/heads/gh-pages'] do |f|
   sh "cd docs && git fetch -q o && git reset -q --hard o/gh-pages && touch ."
 end
 CLOBBER.include 'docs/.git'
+
+rescue LoadError => e
+  puts "Something with rocco didn't load, you can't build the docs! Try bundle install?"
+end
 

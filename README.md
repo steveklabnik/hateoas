@@ -38,14 +38,14 @@ I need to understand what HATEOAS is and how I can use it.
 
 So it's Hypermedia as the Engine of Application State.
 
-  A REST client needs no prior knowledge about how to interact with any particular
-  application or server beyond a generic understanding of hypermedia.
+    A REST client needs no prior knowledge about how to interact with any particular
+    application or server beyond a generic understanding of hypermedia.
 
 A generic understanding of hypermedia is a little vague.
 
 from http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven
 
-  A REST API should be entered with no prior knowledge beyond the initial URI
+`  A REST API should be entered with no prior knowledge beyond the initial URI
   (bookmark) and set of standardized media types that are appropriate for the
   intended audience (i.e., expected to be understood by any client that might
   use the API). From that point on, all application state transitions must be
@@ -54,7 +54,7 @@ from http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven
   The transitions may be determined (or limited by) the client’s knowledge of media types
   and resource communication mechanisms, both of which may be improved on-the-fly
   (e.g., code-on-demand). [Failure here implies that out-of-band information is
-  driving interaction instead of hypertext.]
+  driving interaction instead of hypertext.]`
 
 ^
 This is a part that I am conceptually struggling with.
@@ -78,13 +78,12 @@ adapt to all sorts of changes because the client assumes nothing in advance then
 I can only picture at the other end some kind of human interaction.
 
 Pseudo-interaction of a REST client:
-  * Visit api.twitter.com
-  * See list of links in headers for possible next actions
-  * Check for tweet rel < - how is this determined ?
-    (no prior knowledge so how would I even know I might want to tweet?)
-  * It appears twitter no longer has a tweet action
-  * ...
-  * Perform alternative action (Who or what decided this)
+    * Visit api.twitter.com
+    * See list of links in headers for possible next actions
+    * Check for tweet rel < - how is this determined ? (no prior knowledge so how would I even know I might want to tweet?)
+    * It appears twitter no longer has a tweet action
+    * ...
+    * Perform alternative action (Who or what decided this)
 
 So maybe we can write clients that explore APIs and report back to more intelligent
 agents about what is currently possible. Who are these agents? Intelligent software
@@ -96,11 +95,11 @@ like two people dropping the prerequisite for speaking the same language.
 But perhaps this relates to the concepts of 'standards'
 
 
-  A REST API should never have “typed” resources that are significant to the client.
-  Specification authors may use resource types for describing server implementation
-  behind the interface, but those types must be irrelevant and invisible to the client.
-  The only types that are significant to a client are the current representation’s media
-  type and standardized relation names.
+    A REST API should never have “typed” resources that are significant to the client.
+    Specification authors may use resource types for describing server implementation
+    behind the interface, but those types must be irrelevant and invisible to the client.
+    The only types that are significant to a client are the current representation’s media
+    type and standardized relation names.
 
 'Standardized relation names' sounds to me like out of band communication.
 It may sound like I'm naively comparing each point to human language and communication
@@ -111,9 +110,11 @@ of standards that can summarize and categorize all future expected communication
 
 It sounds worryingly like a top-down approach to thinking about how communications occur.
 It reminds me of attempts to make languages like Esperanto.
+
 An idealist would hope all humans can work towards creating a common language
 and that if we can create a common enough framework that can be expanded upon
 as necessary then we can allow communication from anyone to anyone else on earth.
+
 But these approaches have so far failed. They mainly ignore the advantages of
 specialisation, the benefits of exclusivity within a small group and the efficiency of
 communication when new thoughts and ideas that might be relevant only to the local
@@ -130,8 +131,9 @@ I don't think standardised out-of-band communication could work.
 I think out-of-band communication and state are necessary to have expressive
 and meaningully useful communication.
 
-Out-of-band and state have parallels with pre-learned human language,
-and human memory and interactions.
+
+**Out-of-band and state have parallels with pre-learned human language, human memory and interactions.**
+
 
 I think that for machines to have meaningful relationships with each other they
 may need to have a wealth of pre-determined concepts to build upon and expand
@@ -140,8 +142,8 @@ in a way that enables humans and machines to interact well together is for
 humans to have discussions, ideas and inspiration and to communicate how these
 ideas might be shared between machines by agreeing upon simple meaningful APIs.
 
-I may well be missing the point, but I think coupling in communication is
-possibly a necessity for meaningful communication.
+**I may well be missing the point, but I think coupling in communication is
+possibly a necessity for meaningful communication.**
 Client and server like speaker and listener are inherently bound together
 and without shared prior knowledge machines can no more have meaningful discourse
 than a native Mandarin speaker who speaks no other language can have a deep and
@@ -172,4 +174,3 @@ clothes troll-tastic material just yet. But I am prepared to mention my doubts.
 The ultimate troll would be if the complete conclusion of a 100% REST compliant
 system is that of a user interacting with a web browser and reading the information
 presented to them by first visiting the 'homepage' of the site.
-

@@ -187,8 +187,8 @@ I might expect from using a client API:
 
   twitter = Hateoas.site "api.twitter.com"
   twitter.actions
-  # => [authorize: {method: :get}]
-  twitter.authorize "mark@example.com", "password"
+  # => [sign_in: {method: :get}]
+  twitter.sign_in user: "mark@example.com", password: "password"
   twitter.actions
   # => [read_messages: {method: :get}, tweet: {method: :post}]
 ```
@@ -225,7 +225,7 @@ We can say things like:
 
   These are the services currently available:
 
-  * authorize
+  * sign_in
   * read_messages
   * tweet
 

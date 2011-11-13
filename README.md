@@ -206,14 +206,20 @@ Looking at the example again:
 
 Now HATEOAS will protect us from URL changes which is a Good Thing. Less to document and more flexibility on the server end.
 But it wouldn't protect us from changes in the rel attributes. 
+In the RESTbucks world it doesn't help us if you suddenly have to respond to the question "Would you like syrup with that?" before processing or if during payment processing a 3dsecure step is added. 
 It's just about moving the contract between client and server to a different place. It's probably a good thing because we probably do change URLs a lot, or would if we could do it without breaking clients.
+But I can't see how it could ever be the magical solution to end out of band communication.
 
-I think all that HATEOAS does is shift the point at which APIs break and changes the boundary point of the client server contract.
+
+I think what HATEOAS does is shift the point at which APIs break and changes the boundary point of the client server contract.
 Yes you can tweak your server URLs by adding an extra layer of defence.
 But you can't have clients that don't know about the actions they might expect to take when interacting with a service and the data they might be expected to fill in.
 
-Clients that can react to for example, form field changes intelligently would be most likely humans.
-Probably not simple Ruby scripts anyway.
+If you go to Starbucks then there's some prior implicit knowledge about interacting with the overall service.
+The staff can guide you through the transaction. But if you're a tribesman from Papua New Guinea just landed in the UK as part of a documentary, then you could be lacking a lot of prior information that's necessary for a smooth transaction. You're going to need to understand some basic capitalism, what's being traded, why you might want a Hazelnut Latte, and to be honest if you speak English, it's gonna be a lot easier.
+I think HATEOAS is the member of staff. They can't teach you English. They can't give you free coffee. But if you have some level of implicit understanding of the overall process they can guide you through to the next steps.
+
+
 
 So what's the upshot of this?
 -----------------------------
@@ -250,6 +256,9 @@ click_button "Tweet"
 
 Discoverable APIs could lead to some interesting ways that we'll be able to make our code and APIs more maintainable and easier to developer in the future. I like the idea of an API that's also browsable. 
 And I think as API documentation it's a killer idea. 
-In this way we reduce prior information, but it won't get us around the fact that if you change your fields or validations or the order in which it's possible to progress through a service/application, you will break your clients.
+In this way we reduce prior information, in that someone writing a client still goes and looks at the
+API in advance, but you don't have external documentation explaining the API that you need to keep in sync.
+
+It won't get us around the fact that if you change your fields or validations or the order in which it's possible to progress through a service/application, you will break your clients.
 
 Your clients are still tied to the specific version of the API they were written against but they'll be a lot easier to update if you have a web browsable version of your API and discoverable URLs.

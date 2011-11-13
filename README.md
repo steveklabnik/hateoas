@@ -24,8 +24,8 @@ Trying to understand HATEOAS
 ----------------------------
 I'd like to gain a full understanding of what something that is not just RESTful, RESTish
 or RESTesque, but actually REST. Roy Fielding does the community a bit of a dis-service
-by not providing postive examples of REST systems, only examples that fail to meet his
-expectations. To paraphrse:
+by not providing positive examples of REST systems, only examples that fail to meet his
+expectations. To paraphrase:
 
   "If you don't have full HATEOAS compliance then you don't get REST and you
   shouldn't call it REST."
@@ -130,7 +130,7 @@ The gist of what I'm saying probably sounds thoroughly disconnected from what
 REST is or aspires to be, but I'd like to express the parallels.
 I don't think standardised out-of-band communication could work.
 I think out-of-band communication and state are necessary to have expressive
-and meaningully useful communication.
+and meaningfully useful communication.
 
 
 **Out-of-band and state have parallels with pre-learned human language, human memory and interactions.**
@@ -175,3 +175,79 @@ clothes troll-tastic material just yet. But I am prepared to mention my doubts.
 The ultimate troll would be if the complete conclusion of a 100% REST compliant
 system is that of a user interacting with a web browser and reading the information
 presented to them by first visiting the 'homepage' of the site.
+
+
+API Exploration
+===============
+
+Without fully understanding the benefits of a HATEOAS compliant system I'd like to consider what
+I might expect from using a client API:
+
+```ruby
+
+  twitter = Hateoas.site "api.twitter.com"
+  twitter.actions
+  # => [authorize: {method: :get}]
+  twitter.authorize "mark@example.com", "password"
+  twitter.actions
+  # => [read_messages: {method: :get}, tweet: {method: :post}]
+```
+
+Now the main gist of my point comes down to the prior knowledge of the system
+
+Looking at the example again:
+
+```ruby
+  twitter = Hateoas.site "api.twitter.com" #agreed prior knowledge of URL
+  twitter.actions    #generic - no prior knowledge of twitter API. (actions method could be a generic method defined on the API but it is not preagreed information between client and server)
+  # => [authorize: {method: :get}]
+  twitter.authorize "mark@example.com", "password"   #choosing to call this is prior shared knowledge
+```
+
+Now HATEOAS will protect us from URL changes which is a Good Thing. Less to document and more flexibility on the server end.
+But it wouldn't protect us from changes in the rel attributes. 
+It's just about moving the contract between client and server to a different place. It's probably a good thing because we probably do change URLs a lot, or would if we could do it without breaking clients.
+
+I think all that HATEOAS does is shift the point at which APIs break and changes the boundary point of the client server contract.
+Yes you can tweak your server URLs by adding an extra layer of defence.
+But you can't have clients that don't know about the actions they might expect to take when interacting with a service and the data they might be expected to fill in.
+
+Clients that can react to for example, form field changes intelligently would be most likely humans.
+Probably not simple Ruby scripts anyway.
+
+So what's the upshot of this?
+-----------------------------
+
+HATEOAS seems like it will give you a slightly more friendly contract between clients and servers.
+When writing our API documentation (because I can't see a way around the pre-determined information)
+we can write thinner more human readable documents.
+We can say things like:
+  These are the services currently available:
+  * authorize
+  * read_messages
+  * tweet
+
+To see what fields you need to fill in you can visit the relevant URLs from the API root.
+
+And yes you could make this straightforward XHTML and then a person can even go and browse in a web browser.
+And then your API interaction could becomes the same as a human, filling in forms and clicking links (Capybara interaction).
+I think that's probably writing more code than you need to, but it does give us an interesting way of exploring an API.
+e.g. as a developer I'd rather write
+
+```ruby
+twitter.sign_in user: "mark@example.com", "password"
+twitter.tweet "HATEOAS could make my life easier"
+#than
+visit "/sign_in"
+fill_in "user", with: "password"
+fill_in "password", with: "password"
+click_button "Sign in"
+fill_in "tweet", with: "HATEOAS could make my life easier"
+click_button "Tweet"
+```
+
+Discoverable APIs could lead to some interesting ways that we'll be able to make our code and APIs more maintainable and easier to developer in the future. I like the idea of an API that's also browsable. 
+And I think as API documentation it's a killer idea. 
+In this way we reduce prior information, but it won't get us around the fact that if you change your fields or validations or the order in which it's possible to progress through a service/application, you will break your clients.
+
+Your clients are still tied to the specific version of the API they were written against but they'll be a lot easier to update if you have a web browsable version of your API and discoverable URLs.

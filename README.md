@@ -78,6 +78,7 @@ adapt to all sorts of changes because the client assumes nothing in advance then
 I can only picture at the other end some kind of human interaction.
 
 Pseudo-interaction of a REST client:
+
     * Visit api.twitter.com
     * See list of links in headers for possible next actions
     * Check for tweet rel < - how is this determined ? (no prior knowledge so how would I even know I might want to tweet?)

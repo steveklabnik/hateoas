@@ -200,8 +200,8 @@ Looking at the example again:
 ```ruby
   twitter = Hateoas.site "api.twitter.com" #agreed prior knowledge of URL
   twitter.actions    #generic - no prior knowledge of twitter API. (actions method could be a generic method defined on the API but it is not preagreed information between client and server)
-  # => [authorize: {method: :get}]
-  twitter.authorize "mark@example.com", "password"   #choosing to call this is prior shared knowledge
+  # => [sign_in: {method: :get}]
+  twitter.sign_in user: "mark@example.com", password: "password"   #choosing to call this is prior shared knowledge
 ```
 
 Now HATEOAS will protect us from URL changes which is a Good Thing. Less to document and more flexibility on the server end.
@@ -235,7 +235,7 @@ I think that's probably writing more code than you need to, but it does give us 
 e.g. as a developer I'd rather write
 
 ```ruby
-twitter.sign_in user: "mark@example.com", "password"
+twitter.sign_in user: "mark@example.com", password: "password"
 twitter.tweet "HATEOAS could make my life easier"
 #than
 visit "/sign_in"

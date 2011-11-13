@@ -222,7 +222,9 @@ HATEOAS seems like it will give you a slightly more friendly contract between cl
 When writing our API documentation (because I can't see a way around the pre-determined information)
 we can write thinner more human readable documents.
 We can say things like:
+
   These are the services currently available:
+
   * authorize
   * read_messages
   * tweet

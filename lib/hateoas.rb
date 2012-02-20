@@ -1,93 +1,74 @@
+require 'net/http'
+require 'uri'
+require 'forwardable'
+require 'nokogiri'
+
 module Hateoas
   module MediaType
-    def self.included(includer)
-      includer.extend(ClassMethods)
+    def self.included(including_class)
+      including_class.class_eval do
+        def self.media_type(type)
+          @media_type = type
+        end
+
+        def self.serialization(type)
+        end
+
+        def self.element(*elements)
+        end
+
+        def self.attribute(*attributes)
+        end
+
+        def self.relation(*relations)
+        end
+
+        def self.action(*actions)
+          @actions = actions
+        end
+
+        def self.actions
+          @actions
+        end
+      end
     end
 
-    module ClassMethods
-      def media_type(type)
+    class Request
+      extend Forwardable
+      def_delegators :@uri, :request_uri, :hostname, :port
+
+      def initialize(url, media_type)
+        @uri = URI(url)
+        @media_type = media_type
       end
 
-      def serialization(type)
-      end
+      def get
+        req = Net::HTTP::Get.new(request_uri)
+        req['Accept'] = @media_type
 
-      def element(*elements)
+        Net::HTTP.start(hostname, port) {|http| http.request(req) }.body
       end
+    end
 
-      def attribute(*attributes)
-      end
+    def media_type; @media_type; end
+    def data; @data; end
 
-      def relation(*relations)
-      end
+    def actions
+      self.class.actions.select{|rel| relation_exists?(rel) }
     end
 
     def initialize(uri)
+      @data = Nokogiri::XML(Request.new(uri, @media_type).get)
     end
 
     def relation_exists?(rel)
+      @data.xpath("//*[@rel='#{rel}']").first
     end
 
     def transition(rel)
+      node = @data.xpath("//*[@rel='#{rel}']").first
+      return unless node
+      @data = Nokogiri::XML(Request.new(node[:href], @media_type).get)
     end
   end
 end
-
-class Maze
-  include Hateoas::MediaType
-
-  media_type "application/vnd.amundsen.maze+xml"
-
-  serialization :xml
-
-  element :maze,
-          :cell,
-          :code,
-          :error,
-          :collection,
-          :item,
-          :link,
-          :message,
-          :title,
-          :debug
-
-  attribute :href,
-            :rel,
-            :side,
-            :total,
-            :version
-
-  relation :collection,
-           :current,
-           :east,
-           :exit,
-           :maze,
-           :north,
-           :south,
-           :start,
-           :west
-
-  def actions
-    [:north,
-     :east,
-     :south,
-     :west,
-     :start,
-     :exit].select{|rel| relation_exists?(rel) }
-  end
-end
-
-maze = Maze.new("http://amundsen.com/examples/mazes/2d/five-by-five/")
-
-puts "Let's navigate a maze!"
-
-action = ""
-
-until action == "exit"
-  puts "You can do these things:"
-  puts maze.actions.join(", ")
-  puts "What would you like to do?"
-  action = gets.chomp
-  maze.transition(action)
-end
-
-puts "Done!"

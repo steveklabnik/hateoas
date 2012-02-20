@@ -7,8 +7,9 @@ module Hateoas
   module MediaType
     def self.included(including_class)
       including_class.class_eval do
-        def self.media_type(type)
-          @media_type = type
+        def self.media_type(type=nil)
+          @media_type = type if type
+          @media_type
         end
 
         def self.serialization(type)
@@ -50,7 +51,7 @@ module Hateoas
       end
     end
 
-    def media_type; @media_type; end
+    def media_type; self.class.media_type; end
     def data; @data; end
 
     def actions
@@ -58,7 +59,7 @@ module Hateoas
     end
 
     def initialize(uri)
-      @data = Nokogiri::XML(Request.new(uri, @media_type).get)
+      @data = Nokogiri::XML(Request.new(uri, media_type).get)
     end
 
     def relation_exists?(rel)
